@@ -1,0 +1,31 @@
+{
+  "name": "voken_hd_wallet",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt-ts build",
+    "start": "nuxt-ts start",
+    "export": "nuxt-ts export",
+    "serve": "nuxt-ts serve"
+  },
+  "dependencies": {
+    "@fortawesome/free-brands-svg-icons": "^5.14.0",
+    "@fortawesome/free-regular-svg-icons": "^5.14.0",
+    "@fortawesome/free-solid-svg-icons": "^5.14.0",
+    "@nuxt/typescript-runtime": "^0.4.10",
+    "@tailwindcss/ui": "^0.5.0",
+    "bip39": "^3.0.2",
+    "hdkey": "^2.0.1",
+    "nuxt": "^2.13.0",
+    "nuxt-fontawesome": "^0.4.0",
+    "nuxt-purgecss": "^1.0.0"
+  },
+  "devDependencies": {
+    "@nuxt/typescript-build": "^1.0.3",
+    "@nuxtjs/tailwindcss": "^2.0.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.0.5"
+  }
+}
