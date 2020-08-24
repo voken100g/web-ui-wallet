@@ -1,6 +1,6 @@
 import { join } from 'path'
 
-const baseUrl = '/web-wallet/'
+const baseUrl = '/web-ui-wallet/'
 
 export default {
   /*
@@ -111,7 +111,8 @@ export default {
           'faWallet',
           'faShieldAlt',
           'faGlobeAmericas',
-          'faPlaneDeparture'
+          'faPlaneDeparture',
+          'faHourglassHalf'
         ]
       }
       // {

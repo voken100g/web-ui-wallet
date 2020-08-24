@@ -31,8 +31,14 @@
       </div>
     </div>
 
-    <div class="mt-8 p-12 bg-gray-50 text-2xl text-gray-400 text-center">
-      Not released yet..
+    <div class="validator-wrap text-center">
+      <div class="text-4xl text-gray-400">
+        <fa :icon="['fas', 'hourglass-half']"/>
+      </div>
+
+      <div class="mt-8 text-2xl text-gray-400">
+        Not released yet..
+      </div>
     </div>
 
     <div class="hidden validator-wrap">
@@ -89,7 +95,6 @@ export default {
 </script>
 
 <style scoped>
-
 .validator-wrap {
   @apply mt-6 p-12 bg-gray-50;
 }

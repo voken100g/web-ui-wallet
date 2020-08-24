@@ -101,9 +101,17 @@
     <div v-for="wallet in wallets"
          class="mt-6 bg-gray-50 overflow-hidden sm:rounded-lg border border-gray-500">
       <div class="px-4 py-5 sm:p-6">
-        <h2 class="text-xl">
-          Wallet {{ wallet.id }}
-        </h2>
+
+        <div class="flex flex-col items-center justify-center space-y-3">
+          <div>
+            <ident-icon class="wallet-ident-icon" :value="wallet.address"/>
+          </div>
+
+          <h2 class="text-xl text-gray-600">
+            Wallet #{{ wallet.id }}
+          </h2>
+        </div>
+
 
         <div class="mt-4 sensitive">
           <label :for="private_key_id(wallet.id)" class="label">
@@ -165,7 +173,7 @@
                 class="inline-flex items-center px-6 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-gray-600 hover:bg-gray-500 focus:outline-none focus:border-gray-700 focus:shadow-outline-gray active:bg-gray-700 transition ease-in-out duration-150">
           <fa :icon="['fas', 'wallet']"/>
           <span class="ml-4">
-            Show wallet {{ this.wallets.length }}
+            Show wallet #{{ this.wallets.length }}
           </span>
         </button>
       </span>
@@ -177,9 +185,11 @@
 import * as bip39 from 'bip39'
 import * as HDKey from 'hdkey'
 import vokenAddress from '../utils/voken-address'
+import IdentIcon from '@/components/IdentIcon'
 
 export default {
   name: 'generator',
+  components: { IdentIcon },
   layout: 'completed',
   data() {
     return {
@@ -339,6 +349,10 @@ export default {
 
 .mnemonic-length-select:focus {
   @apply outline-none;
+}
+
+.wallet-ident-icon {
+  @apply w-14 h-14 bg-gray-300 rounded-full border-2 border-gray-50 shadow;
 }
 
 .btn-generate {
