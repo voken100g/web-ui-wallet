@@ -37,30 +37,39 @@
       </div>
     </div>
 
-    <div class="validator-wrap">
-      <div class="wallet-icon-wrap" :class="{ 'success': isAddress, 'failed': address && !isAddress }">
+    <div class="mt-6 py-12 px-4 md:px-6 bg-gray-50">
+      <div class="wallet-icon-wrap" :class="{ 'success': addressSuccess, 'error': addressError }">
         <fa :icon="['fas', 'wallet']"/>
       </div>
 
       <div class="mt-6">
-        <input aria-label="Voken wallet address"
-               ref="address"
-               class="form-input address-input"
-               :class="{ 'success': isAddress, 'failed': address && !isAddress }"
-               v-model="address"
-               placeholder="Input a Voken wallet address to validate"/>
+        <label for="address"></label>
+        <div class="mt-4 relative">
+          <input id="address"
+                 ref="address"
+                 class="form-input ipt"
+                 :class="{ 'success': addressSuccess, 'error': addressError }"
+                 v-model="address"
+                 placeholder="Input a Voken wallet address to validate"/>
+
+          <div v-show="addressSuccess" class="absolute inset-y-0 right-0 pr-3 flex items-center">
+            <ident-icon :value="address" class="w-10 h-10 rounded-full border-2 border-green-50 shadow-md"/>
+          </div>
+        </div>
       </div>
 
       <div v-show="address">
-        <p v-show="isAddress" class="address-p success">
-          Voken wallet address verification passed.
-        </p>
-        <p v-show="!isAddress" class="address-p failed">
-          Not a valid Voken wallet address.
+        <p class="ipt-p" :class="{ 'success': addressSuccess, 'error': addressError }">
+          <span v-show="addressSuccess">
+            VOKEN wallet address verification passed.
+          </span>
+          <span v-show="!addressSuccess">
+            Not a valid VOKEN wallet address.
+          </span>
         </p>
       </div>
       <div v-show="!address">
-        <p v-show="!isAddress" class="address-p">
+        <p class="ipt-p">
           Please input an address to validate...
         </p>
       </div>
@@ -70,9 +79,11 @@
 
 <script>
 import vokenAddress from '../utils/voken-address'
+import IdentIcon from '~/components/IdentIcon'
 
 export default {
   name: 'validator',
+  components: { IdentIcon },
   layout: 'completed',
   data() {
     return {
@@ -83,6 +94,12 @@ export default {
     this.$refs.address.focus()
   },
   computed: {
+    addressSuccess() {
+      return vokenAddress.isAddress(this.address)
+    },
+    addressError() {
+      return this.address && !this.addressSuccess
+    },
     isAddress() {
       return vokenAddress.isAddress(this.address)
     }
@@ -91,10 +108,6 @@ export default {
 </script>
 
 <style scoped>
-.validator-wrap {
-  @apply mt-6 p-12 bg-gray-50;
-}
-
 .wallet-icon-wrap {
   @apply text-center text-4xl text-gray-800;
 }
@@ -103,29 +116,27 @@ export default {
   @apply text-green-800;
 }
 
-.wallet-icon-wrap.failed {
+.wallet-icon-wrap.error {
   @apply text-red-800;
 }
 
-.address-input {
-  @apply block w-full px-4 py-3;
+.ipt {
+  @apply block w-full px-4 py-4;
 }
 
-.address-input.success {
-  @apply bg-green-50 border-green-600 text-green-600;
-}
-
-.address-input.failed {
-  @apply bg-red-50 border-red-600 text-red-600;
+.ipt-p {
+  @apply mt-4 text-center;
 }
 
 .address-p {
   @apply mt-4 text-base leading-5 text-gray-500 text-center;
 }
+
 .address-p.success {
   @apply text-green-700;
 }
-.address-p.failed {
+
+.address-p.error {
   @apply text-red-700;
 }
 

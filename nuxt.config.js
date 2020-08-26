@@ -61,14 +61,15 @@ export default {
       { rel: 'icon', type: 'image/png', sizes: '16x16', href: baseUrl + 'favicon/favicon-16x16.png' },
 
       { rel: 'manifest', href: baseUrl + 'favicon/manifest.json' }
-
     ]
   },
 
   /*
   ** Global CSS
   */
-  css: [],
+  css: [
+    '@/assets/css/main.scss'
+  ],
 
   /*
   ** Plugins to load before mounting the App

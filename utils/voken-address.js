@@ -32,6 +32,14 @@ const pubToAddress = function(pubKey) {
 }
 
 const isAddress = function(address) {
+  if (address.length !== 33) {
+    return false
+  }
+
+  if (address.slice(0, 1) !== 'v') {
+    return false
+  }
+
   let addr32 = address.slice(1).toLowerCase()
   let _address = addr32ToAddress(addr32)
 

@@ -61,22 +61,23 @@
     </div>
 
     <!--  Mnemonic  -->
-    <div class="mt-6 sensitive" :class="{ 'error': mnemonicInvalid }">
-      <label for="mnemonic" class="label">
+    <div class="mt-6">
+      <label for="mnemonic" :class="{ 'warning': !mnemonicInvalid, 'error': mnemonicInvalid }">
         BIP39 Mnemonic (backup phrase)
       </label>
+
       <textarea id="mnemonic"
                 rows="3"
                 ref="mnemonic"
-                class="form-textarea mt-1 mnemonic-textarea"
+                class="form-textarea mt-1 txa"
+                :class="{ 'warning': !mnemonicInvalid, 'error': mnemonicInvalid }"
                 placeholder="Input or generate your mnemonic"
                 v-model="mnemonic"
                 @focus="mnemonicFocus"
                 @blur="mnemonicBlur"
-                @keyup.enter="mnemonicBlur"
-      ></textarea>
-      <p v-show="mnemonicInvalid"
-         class="mt-1 text-sm text-red-600 text-center font-bold">
+                @keyup.enter="mnemonicBlur"></textarea>
+
+      <p v-show="mnemonicInvalid" class="mt-1 text-sm text-red-600 text-center font-bold">
         [Checksum failed] Invalid mnemonic.
       </p>
     </div>
@@ -86,82 +87,69 @@
       <fa :icon="['fas', 'wallet']"/>
     </div>
 
-    <div class="mt-3 lg:text-center">
+    <div class="mt-3 mb-12 lg:text-center">
       <h3 class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-        Native secure Voken address
+        Native secure VOKEN address
       </h3>
       <p class="mt-4 max-w-2xl text-xl leading-7 text-gray-500 lg:mx-auto">
-        A Voken wallet address is natively no mistakes allowed.
+        A VOKEN wallet address is natively no mistakes allowed.
         vnCHAIN does not allow transfers with a misspelling address.
-        There will be no loss of assets due to it than other crypto-currencies.
+        There will be no loss of funds due to it than other crypto-currencies.
       </p>
     </div>
 
     <!--  Wallets  -->
-    <div v-for="wallet in wallets"
-         class="mt-6 bg-gray-50 overflow-hidden sm:rounded-lg border border-gray-500">
-      <div class="px-4 py-5 sm:p-6">
+    <div v-for="wallet in wallets" class="wallet">
+      <h2>
+        Wallet #{{ wallet.id }}
+      </h2>
 
-        <div class="flex flex-col items-center justify-center space-y-3">
-          <div>
-            <ident-icon class="wallet-ident-icon" :value="wallet.address"/>
-          </div>
+      <div class="mt-4">
+        <label :for="private_key_id(wallet.id)" class="warning">
+          Private key
+        </label>
 
-          <h2 class="text-xl text-gray-600">
-            Wallet #{{ wallet.id }}
-          </h2>
+        <div class="mt-2">
+          <input :id="private_key_id(wallet.id)" class="form-input ipt warning" v-model="wallet.prvKeyHex" readonly>
         </div>
 
-
-        <div class="mt-4 sensitive">
-          <label :for="private_key_id(wallet.id)" class="label">
-            Private key
-          </label>
-          <div class="input-wrap">
-            <input :id="private_key_id(wallet.id)"
-                   class="form-input input"
-                   placeholder="Private key in hex"
-                   readonly
-                   v-model="wallet.prvKeyHex">
-          </div>
-          <p class="purpose">
-            For signing and verification
-          </p>
-        </div>
-
-        <div class="mt-4 safe">
-          <label :for="public_key_id(wallet.id)" class="label">
-            Public key
-          </label>
-          <div class="input-wrap">
-            <input :id="public_key_id(wallet.id)"
-                   class="form-input input"
-                   placeholder="Public key in hex"
-                   readonly
-                   v-model="wallet.pubKeyHex">
-          </div>
-          <p class="purpose">
-            For encrypted communications
-          </p>
-        </div>
-
-        <div class="mt-4 safe">
-          <label :for="voken_address_id(wallet.id)" class="label">
-            Voken wallet address
-          </label>
-          <div class="input-wrap">
-            <input :id="voken_address_id(wallet.id)"
-                   class="form-input input"
-                   placeholder="Voken address"
-                   readonly
-                   v-model="wallet.address">
-          </div>
-          <p class="purpose">
-            For sending or receiving assets
-          </p>
-        </div>
-
+        <p class="purpose">
+          For signature and verification, keep safely
+        </p>
       </div>
+
+      <div class="mt-4 safe">
+        <label :for="public_key_id(wallet.id)" class="success">
+          Public key
+        </label>
+
+        <div class="mt-2">
+          <input :id="public_key_id(wallet.id)" class="form-input ipt success" v-model="wallet.pubKeyHex" readonly>
+        </div>
+
+        <p class="purpose">
+          For encrypted communications
+        </p>
+      </div>
+
+      <div class="mt-4 safe">
+        <label :for="voken_address_id(wallet.id)" class="success">
+          Voken wallet address
+        </label>
+
+        <div class="mt-2 relative">
+          <input :id="voken_address_id(wallet.id)" class="form-input ipt success" v-model="wallet.address" readonly>
+
+          <div class="ident-icon-wrap">
+            <ident-icon :value="wallet.address" class="ident-icon"/>
+          </div>
+        </div>
+
+        <p class="purpose">
+          For sending or receiving funds
+        </p>
+      </div>
+
     </div>
 
     <!--  Generate one more wallet  -->
@@ -293,53 +281,18 @@ export default {
 </script>
 
 <style scoped>
-.label {
-  @apply block text-sm leading-5 font-medium text-gray-700;
+label {
+  @apply leading-5 font-medium;
 }
 
-.mnemonic-textarea {
-  @apply block w-full text-lg leading-8 rounded-md shadow-sm font-bold;
+.txa {
+  @apply block mt-2 w-full text-lg leading-8 rounded-md shadow-sm font-bold;
   @apply transition duration-150 ease-in-out;
 }
 
-.input-wrap {
-  @apply mt-1 rounded-md shadow-sm;
-}
-
-.input {
-  @apply block w-full font-mono text-sm leading-5;
-}
-
-.sensitive .label {
-  @apply text-yellow-700;
-}
-
-.sensitive .input {
-  @apply bg-yellow-50 border-yellow-500 text-yellow-600;
-}
-
-.sensitive .mnemonic-textarea {
-  @apply bg-yellow-50 border-yellow-500 text-yellow-600;
-}
-
-.sensitive .mnemonic-textarea:focus {
-  @apply bg-transparent border-gray-300 text-gray-600;
-}
-
-.error .mnemonic-textarea {
-  @apply bg-red-50 text-red-600 border-red-600;
-}
-
-.error .label {
-  @apply text-red-800;
-}
-
-.safe .label {
-  @apply text-green-700;
-}
-
-.safe .input {
-  @apply bg-green-50 border-green-500 text-green-600;
+.ipt {
+  @apply block w-full px-4 py-4;
+  @apply font-mono text-sm leading-5;
 }
 
 .mnemonic-length-select {
@@ -349,10 +302,6 @@ export default {
 
 .mnemonic-length-select:focus {
   @apply outline-none;
-}
-
-.wallet-ident-icon {
-  @apply w-14 h-14 bg-gray-300 rounded-full border-2 border-gray-50 shadow;
 }
 
 .btn-generate {
@@ -374,6 +323,22 @@ export default {
 
 .security-tips-ul li {
   @apply leading-7;
+}
+
+.wallet {
+  @apply mt-6 p-6 bg-gray-50 overflow-hidden rounded-lg border border-gray-300;
+}
+
+.wallet h2 {
+  @apply text-xl text-gray-600 text-center;
+}
+
+.ident-icon-wrap {
+  @apply absolute inset-y-0 right-0 pr-3 flex items-center;
+}
+
+.ident-icon {
+  @apply w-10 h-10 rounded-full border-2 border-green-50 shadow-md;
 }
 
 .purpose {
