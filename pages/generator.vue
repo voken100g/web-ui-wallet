@@ -1,5 +1,5 @@
 <template>
-  <div class="py-6">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
     <div class="bg-gray-800 max-w-screen-xl mx-auto pt-12 px-4 pb-8 sm:px-6 lg:pt-16 lg:px-8 lg:pb-12">
       <div class="lg:flex lg:items-center">
         <div class="lg:w-0 lg:flex-1">
@@ -178,7 +178,6 @@ import IdentIcon from '@/components/IdentIcon'
 export default {
   name: 'generator',
   components: { IdentIcon },
-  layout: 'completed',
   data() {
     return {
       mnemonic: '',
