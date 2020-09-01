@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+  <layout-container class="py-6">
     <div class="bg-gray-800 max-w-screen-xl mx-auto pt-12 px-4 pb-8 sm:px-6 lg:pt-16 lg:px-8 lg:pb-12">
       <div class="lg:flex lg:items-center">
         <div class="lg:w-0 lg:flex-1">
@@ -23,7 +23,8 @@
           <div class="mt-2 text-sm leading-5 text-gray-300">
             <ul class="security-tips-ul">
               <li>
-                Please make sure you have saved the mnemonic or private key for the address that you are about to migrate.
+                Please make sure you have saved the mnemonic or private key for the address that you are about to
+                migrate.
               </li>
             </ul>
           </div>
@@ -31,15 +32,55 @@
       </div>
     </div>
 
-    <div class="validator-wrap text-center">
-      <div class="text-4xl text-gray-400">
-        <fa :icon="['fas', 'hourglass-half']"/>
-      </div>
-
-      <div class="mt-8 text-2xl text-gray-400">
-        Not released yet..
-      </div>
+    <div class="mt-12 text-4xl lg:text-5xl text-gray-300 text-center">
+      <fa :icon="['fas', 'hourglass-half']"/>
     </div>
+
+    <layout-article :short="true">
+      <template #tag>
+        To be released
+      </template>
+
+      <template #title>
+        Migrate to vnCHAIN
+      </template>
+
+      <p>
+        Once the vnCHAIN Susitna (beta) has been proven to work stably and efficiently,
+        we can prepare the launch work for vnCHAIN Copper (phase #1 of the main net).
+      </p>
+
+      <p>
+        It takes time, but not far.
+      </p>
+
+      <h2>
+        How to migrate?
+      </h2>
+
+      <p>
+        There will be a web3 dApp runs on Ethereum, by which you can prove your holding.
+        Submit your VOKEN wallet address to it; then, you can get the balance in vnCHAIN.
+      </p>
+      <p>
+        The migration dApp would be released before the vnCHAIN Copper is launched.
+      </p>
+
+      <h2 id="from-voken-1">
+        From Voken 1.0 ?
+      </h2>
+      <p>
+        <strong>Voken1.0</strong> ERC20 token on Ethereum <strong>was deprecated</strong> since Sep 2019.
+        No one can transfer even one nano Voken (100 kB traffic).
+      </p>
+      <p>
+        For many reasons, some people hadn't finished the upgrading.
+        That's sad. But don't worry,
+        we can find a way to make another specific dApp to finish it.
+        As the same: submit, then get your VOKEN in vnCHAIN.
+      </p>
+    </layout-article>
+
 
     <div class="hidden validator-wrap">
       <div class="wallet-icon-wrap" :class="{ 'success': isAddress, 'failed': address && !isAddress }">
@@ -69,14 +110,17 @@
         </p>
       </div>
     </div>
-  </div>
+  </layout-container>
 </template>
 
 <script>
 import vokenAddress from '../utils/voken-address'
+import LayoutArticle from '~/components/LayoutArticle'
+import LayoutContainer from '~/components/LayoutContainer'
 
 export default {
   name: 'migrator',
+  components: { LayoutContainer, LayoutArticle },
   data() {
     return {
       address: ''

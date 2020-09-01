@@ -42,13 +42,13 @@
         <div class="flex items-center">
           <div class="flex-shrink-0">
             <span class="rounded-md shadow-sm">
-              <nuxt-link to="/migrator"
-                         class="btn">
+              <a href="/web-ui-clientbase"
+                 class="btn">
                 <fa :icon="['fas', 'plane-departure']"/>
                 <span class="pl-2">
-                  Migrate
+                  Proxy ClientBase
                 </span>
-              </nuxt-link>
+              </a>
             </span>
           </div>
 

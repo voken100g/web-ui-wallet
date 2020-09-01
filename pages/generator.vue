@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+  <layout-container class="py-6">
     <div class="bg-gray-800 max-w-screen-xl mx-auto pt-12 px-4 pb-8 sm:px-6 lg:pt-16 lg:px-8 lg:pb-12">
       <div class="lg:flex lg:items-center">
         <div class="lg:w-0 lg:flex-1">
@@ -166,7 +166,7 @@
         </button>
       </span>
     </div>
-  </div>
+  </layout-container>
 </template>
 
 <script>
@@ -174,10 +174,11 @@ import * as bip39 from 'bip39'
 import * as HDKey from 'hdkey'
 import vokenAddress from '../utils/voken-address'
 import IdentIcon from '@/components/IdentIcon'
+import LayoutContainer from '~/components/LayoutContainer'
 
 export default {
   name: 'generator',
-  components: { IdentIcon },
+  components: { LayoutContainer, IdentIcon },
   data() {
     return {
       mnemonic: '',

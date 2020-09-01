@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 flex space-x-3">
+  <layout-container class="py-6 flex space-x-3">
     <div class="flex-1">
       <label for="decoded">
         Base64.decoded
@@ -26,14 +26,16 @@
         {{ exception }}
       </p>
     </div>
-  </div>
+  </layout-container>
 </template>
 
 <script>
 import { Base64 } from 'js-base64'
+import LayoutContainer from '~/components/LayoutContainer'
 
 export default {
   name: 'base64',
+  components: { LayoutContainer },
   data() {
     return {
       decoded: '',
@@ -61,7 +63,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>
